@@ -21,7 +21,7 @@ fn Input(
 /// Renders the main application.
 #[component]
 fn App() -> impl IntoView {
-    let (name, set_name) = create_signal("Controller".to_string());
+    let (name, set_name) = create_signal("Controlled".to_string());
     view! {
         <Input setter=set_name />
         <p>{name}</p>
