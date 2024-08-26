@@ -1,31 +1,25 @@
+use ev::SubmitEvent;
 use leptos::*;
-
-/// Renders an input element with a given `title` and `setter` 
-#[component]
-fn Input(
-    setter: WriteSignal<String>,
-) -> impl IntoView {
-    
-    view! {
-        <input type="text"
-            // event_target_value is similar to e.target.value in JS:
-            on:input=move |ev| {
-                setter(event_target_value(&ev))
-            }
-
-            // `prop:` updates a dom property rather than an attribute.
-            />
-        }
-}
 
 /// Renders the main application.
 #[component]
 fn App() -> impl IntoView {
-    let (name, set_name) = create_signal("Controlled".to_string());
+    let (name, set_name) = create_signal("UnControlled".to_string());
+    let input_element: NodeRef<html::Input> = create_node_ref();
+    let on_submit = move |ev: SubmitEvent| {
+        ev.prevent_default();
+        let value = input_element()
+            .expect("<input> should be mounted")
+            .value();
+        set_name(value);
+    };
     view! {
-        <Input setter=set_name />
+        <form on:submit=on_submit>
+            <input type="text" value=name node_ref=input_element/>
+            <input type="submit" value="Submit" />
+        </form>
         <p>{name}</p>
-        }
+    }
 }
 
 fn main() {
