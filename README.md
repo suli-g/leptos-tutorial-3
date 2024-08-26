@@ -1,6 +1,6 @@
 # Leptos Tutorial Part 3 : Forms
 
-The second part of the Leptops Tutorial - featuring Iteration.
+The third part of the Leptops Tutorial - featuring forms.
 
 ## Setup
 
